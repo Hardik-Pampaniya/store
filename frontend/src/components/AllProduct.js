@@ -5,6 +5,7 @@ import './component.css';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import Search from './Search';
+import './Product data.css'; 
 
 
 const ProductTable = () => {
@@ -140,35 +141,37 @@ const ProductTable = () => {
 
 
     return (
-        <div className="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary mt-5 mb-3">
-
-                <div class="container-fluid">
-
-                    <div class="product-navbar" id="navbarSupportedContent">
-                        <h2>Product list</h2>
-
-                    </div>
-
-                    <div class="d-flex right-menu"> <input type="text"
-                        className="search-input"
+        <div className="product-table-container">
+        <nav className="navbar navbar-light bg-light">
+            <div className="container">
+                <div className="product-navbar">
+                    <h2 className="navbar-brand">Product list</h2>
+                    <input
+                        type="text"
+                        className="form-control search-input"
                         placeholder="Search..."
                         value={query}
-                        onChange={(e) => setQuery(e.target.value)} />
-                        <button className="btn btn-primary btn-sm " type="button" onClick={handleSearch}>Search</button>
-                        <button className="btn btn-warning logout-button " type="button" onClick={handleLogout}>Log Out</button>
-                        <a class="navbar-brand mt-2 mt-lg-0" href='' onClick={handleImageClick}>
-                            <img
-                                src={`http://localhost:5000${user.profile_pic}`}
-                                height="30"
-                                width="30"
-                                alt="user" />
-                        </a>
-                    </div>
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
+                    <button className="search" onClick={handleSearch}>
+                        Search
+                    </button>
+                    <button className="logout" onClick={handleLogout}>
+                        Log    Out
+                    </button>
+                    <a className="navbar-brand" href='' onClick={handleImageClick}>
+                        <img
+                            src={`http://localhost:5000${user.profile_pic}`}
+                            height="30"
+                            width="30"
+                            alt="user"
+                        />
+                    </a>
                 </div>
-            </nav>
-            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-            <table className="table">
+            </div>
+        </nav>
+        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+            <table className="table product-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -209,15 +212,28 @@ const ProductTable = () => {
             </table>
             
 
-           <div className='allproduct-button'>
-                <div>
-                        <button className="btn btn-primary btn-sm mx-5" type="button" onClick={handlePreviousPage} disabled={page === 1}>Previous Page</button>
-                        <span className="mx-2">Page {page}</span>
-
-                        <button className="btn btn-primary btn-sm mx-5" type="button" onClick={handleNextPage} disabled={products.length < pageSize}>Next Page</button>
-                </div>
-                <button className="btn btn-primary btn-sm" type="button" onClick={handleClick}>Add Product</button>
-           </div>
+           <div className="product-actions">
+                <button
+                    className="btn btn-primary"
+                    onClick={handlePreviousPage}
+                    disabled={page === 1}
+                >
+                    Previous Page
+                </button>
+                <span>Page {page}</span>
+                <button
+                    className="btn btn-primary"
+                    onClick={handleNextPage}
+                    disabled={products.length < pageSize}
+                >
+                    Next Page
+                </button>
+            </div>
+            <div className="add-product-button">
+                <button className="btn btn-primary" onClick={handleClick}>
+                    Add Product
+                </button>
+            </div>
         </div>
     );
 };
